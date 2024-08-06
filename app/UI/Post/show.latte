@@ -1,0 +1,112 @@
+{block content}
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DETAIL PŘÍSPĚVKU - WAR BLOG</title>
+    <link href="path/to/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .comments {
+            margin-top: 20px;
+        }
+
+        .comment-card {
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .comment-card-body {
+            padding: 15px;
+        }
+
+        .post-card {
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg w-100 shadow-sm">
+    <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1 fs-2 text-white" style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);">
+        <a href="{link Home:default}" class="text-white text-decoration-none">WAR \ BLOG</a>
+        </span>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    {if $user->isInRole('admin')}
+                        <a class="nav-link btn btn-success text-white" href="{link Dashboard:default}">Administrace</a>
+                    {/if}
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-primary text-white" href="{link Home:default}">Domů</a>
+                </li>
+                <li class="nav-item">
+                    {if !($user->isLoggedIn())}
+                        <a class="nav-link btn btn-primary text-white" href="{link Sign:in}">Přihlásit se</a>
+                    {else}
+                        <a class="nav-link btn btn-danger text-white" href="{link Sign:out}">Odhlásit se</a>
+                    {/if}
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <div class="card post-card">
+        <div class="card-body">
+            <h1>{$post->title}</h1>
+            <div class="post">{$post->content}</div>
+            <br>
+            {if isset($post->image)}
+                <img src="{$basePath}/{$post->image}" alt="Obrázek k článku {$post->title}" style="max-width: 500px; height: auto;">
+            {/if}
+            <br>
+            <br>
+            {if $user->isLoggedIn() && ($user->id === $post->user_id || $user->isInRole('admin'))}
+            <div class="action-buttons">
+                <a href="{link Edit:edit $post->id}" class="btn btn-primary text-white">Upravit příspěvek</a>
+                <a href="{link deletePost! $post->id}" class="btn btn-danger text-white">Smazat příspěvek</a>
+            </div>
+            {/if}
+            <br>
+            <div class="views mt-auto text-success">Zobrazení: {$post->views}</div>
+            <div class="date">{$post->created_at|date:'F j, Y'}</div>
+        </div>
+    </div>
+    {if (($post->status) == "OPEN") and (($user->isLoggedIn()) == True)}
+        <h2 class="mt-5">Napsat komentář:</h2>
+        {control commentForm}
+    {/if}
+        <h2 class="mt-5">Komentáře:</h2>
+
+        <div class="comments">
+            {foreach $comments as $comment}
+                <div class="card comment-card">
+                    <div class="card-body comment-card-body">
+                        <p><b><a href="mailto:{$comment->email}" n:tag-if="$comment->email">
+                            {$comment->name}
+                        </a></b> napsal:</p>
+                        <div>{$comment->content}</div>
+                        {if $user->isLoggedIn() && ($user->id === $comment->user_id || $user->isInRole('admin'))}
+                            <a href="{link Edit:comment $comment->id}" class="btn btn-primary text-white">Upravit komentář</a>
+                            <a href="{link deleteComment! $comment->id}" class="btn btn-danger text-white">Odebrat komentář</a>
+                        {/if}
+                    </div>
+                </div>
+            {/foreach}
+        </div>
+
+</div>
+
+</body>
+</html>
+
+{/block}

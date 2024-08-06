@@ -1,0 +1,62 @@
+{block content}
+<style>
+        .table-header {
+            background-color: #343a40;
+            color: white;
+        }
+    </style>
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg w-100 shadow-sm">
+    <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1 fs-2">Administrace - Přehled komentářů</span>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link btn text-white" href="{link Dashboard:default}">Přehled uživatelů</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn text-white" href="{link Dashboard:post}">Přehled příspěvků</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-primary text-white" href="{link Home:default}">Domů</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-danger text-white" href="{link Sign:out}">Odhlásit se</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+<div class="container mt-5">
+    <h2>Komentáře:</h2>
+    <table class="table table-striped">
+        <thead class="table-header">
+            <tr>
+                <th scope="col">Příspěvek</th>
+                <th scope="col">Autor</th>
+                <th scope="col">E-mail</th>
+                <th scope="col">Obsah</th>
+                <th scope="col">Akce</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {foreach $comments as $comment}
+            <tr>
+                <td><a href="{link Post:show, $comment->post->id}">{$comment->post->title}</a></td>
+                <td>{$comment->name}</td>
+                <td><a href="mailto:{$comment->email}" n:tag-if="$comment->email">{$comment->email}</a></td>
+                <td>{$comment->content|truncate:100,"..."}</td>
+                <td><a href="{link Edit:comment $comment->id}" class="btn btn-primary text-white">Upravit</a></td>
+                <td><a href="{link deleteComment! $comment->id}" class="btn btn-danger text-white">Odebrat</a></td>
+            </tr>
+            {/foreach}
+        </tbody>
+    </table>
+</div>
+{/block}

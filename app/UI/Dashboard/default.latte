@@ -1,0 +1,74 @@
+{block content}
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WAR \ BLOG - Administrace</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .table-header {
+            background-color: #343a40;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg w-100 shadow-sm">
+    <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1 fs-2">Administrace - Přehled uživatelů</span>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link btn text-white" href="{link Dashboard:comment}">Přehled komentářů</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn text-white" href="{link Dashboard:post}">Přehled příspěvků</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-primary text-white" href="{link Home:default}">Domů</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-danger text-white" href="{link Sign:out}">Odhlásit se</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <h2>Uživatelé:</h2>
+    <a class="nav-link btn btn-success text-white" n:href="Sign:up, back => 'admin'">Přidat nového uživatele</a>
+    <br>
+
+    <table class="table table-striped">
+        <thead class="table-header">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Uživatelské jméno</th>
+                <th scope="col">Jméno</th>
+                <th scope="col">Příjmení</th>
+                <th scope="col">E-mail</th>
+            </tr>
+        </thead>
+        <tbody>
+            {foreach $users as $u}
+                <tr>
+                    <td>{$u->id}</td>
+                    <td>{$u->username}</td>
+                    <td>{$u->surname}</td>
+                    <td>{$u->lastname}</td>
+                    <td>{$u->email}</td>
+                  
+                </tr>
+            {/foreach}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
+{/block}

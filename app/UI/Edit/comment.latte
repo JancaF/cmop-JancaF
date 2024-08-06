@@ -1,0 +1,77 @@
+{block content}
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WAR\BLOG - NOVÝ PŘÍSPĚVEK</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+
+        h1 {
+            color: #007bff;
+            margin-top: 20px;
+        }
+
+
+        form {
+            margin-top: 20px;
+        }
+
+        form input[type="text"],
+        form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+
+        form textarea {
+            height: 200px;
+        }
+
+        form button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg w-100 shadow-sm">
+    <div class="container-fluid">
+       <span class="navbar-brand mb-0 h1 fs-2 text-white" style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);">
+        <a href="{link Home:default}" class="text-white text-decoration-none">WAR \ BLOG</a>
+        </span>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link btn btn-primary text-white" href="{link Home:default}">Domů</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<h1>Úprava komentáře</h1>
+
+{control editCommentForm}
+
+</body>
+</html>
+{/block}

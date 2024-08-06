@@ -1,0 +1,21 @@
+{block content}
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg w-100 shadow-sm">
+    <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1 fs-2">Zaregistrovat se</span>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link btn btn-primary text-white" href="{link Home:default}">Domů</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<br>
+
+{include bootstrap-form signUpForm}
+
+<p class="text-center"><a n:href="in">Už máte účet? Přihlašte se.</a></p>

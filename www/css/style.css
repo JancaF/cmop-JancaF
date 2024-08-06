@@ -1,0 +1,23 @@
+body {
+    background-color:darkblue;
+}
+h1 {
+    color:rgb(0, 217, 255);
+    text-decoration: underline;
+    background-color: rgb(103, 103, 253);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+}
+h2 {
+    background-color: rgb(103, 103, 253);
+    color:rgb(0, 217, 255);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.status_write {
+    background-color: aqua;
+}
+footer {
+    background-color: aqua;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    border:3px solid blue;
+}

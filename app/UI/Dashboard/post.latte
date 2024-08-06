@@ -1,0 +1,81 @@
+{block content}
+
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digitální animace - Administrace</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .table-header {
+            background-color: #343a40;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="background-rectangle"></div>
+<div class="background-triangle"></div>
+
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg w-100 shadow-sm">
+    <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1 fs-2">Administrace - Přehled příspěvků</span>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link btn text-white" href="{link Dashboard:default}">Přehled uživatelů</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn text-white" href="{link Dashboard:comment}">Přehled komentářu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-primary text-white" href="{link Home:default}">Domů</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-danger text-white" href="{link Sign:out}">Odhlásit se</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <h2>Příspěvky:</h2>
+    <table class="table table-striped">
+        <thead class="table-header">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Titulek</th>
+                <th scope="col">Obsah</th>
+                <th scope="col">Zhlédnutí</th>
+                <th scope="col">Datum vytvoření</th>
+                <th scope="col">Akce</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {foreach $posts as $p}
+                <tr>
+                    <td>{$p->id}</td>
+                    <td><a href="{link Post:show, $p->id}">{$p->title}</a></td>
+                    <td>{$p->content|truncate:100,"..."}</td>
+                    <td>{$p->views}</td>
+                    <td>{$p->created_at}</td>
+                    <td><a href="{link Edit:edit $p->id}" class="btn btn-primary text-white">Upravit</a></td>
+                    <td><a href="{link deletePost! $p->id}" class="btn btn-danger text-white">Smazat</a></td>
+                </tr>
+            {/foreach}
+        </tbody>
+    </table>
+</div>
+
+
+</body>
+</html>
+{/block}
+

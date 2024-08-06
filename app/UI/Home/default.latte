@@ -1,0 +1,81 @@
+{block content}
+<header>
+<h1>✪WAR\BLOG✪</h1>
+</header>
+<h2>Články:</h2>
+<nav class="navbar navbar-dark bg-info navbar-expand-lg w-100 shadow-sm">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    {if $user->isInRole('admin')}
+                        <a class="nav-link btn btn-success text-white" href="{link Dashboard:default}">Administrace</a>
+                    {/if}
+                </li>
+                <li class="nav-item">
+                    {if !($user->isLoggedIn())}
+                        <a class="nav-link btn btn-success text-white" href="{link Sign:in}">Přihlásit se</a>
+                        <a class="nav-link btn btn-success text-white" href="{link Sign:up}">Zaregistruj se</a>
+                    {else}
+                        <a class="nav-link btn btn-primary text-white" href="{link Sign:out}">Odhlásit se</a>
+                    {/if}
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container mt-5">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+        {foreach $posts as $post}
+            {if ($post->status) != "ARCHIVED" or ($user->isLoggedIn()) == True}
+                <div class="col">
+                    <a href="{link Post:show $post->id}" class="text-decoration-none">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body bg-warning border border-3 d-flex flex-column text-dark">
+                                <div class="date text-muted">Autor: {$post->user->username} - {$post->created_at|date:'F j, Y'}</div>
+
+                                <h5 class="card-title text-primary">{$post->title}</h5>
+                                <p class="card-text">{$post->content|truncate:100}</p>
+                                {if isset($post->image)} 
+                                    <img src="{$basePath}/{$post->image}" alt="Obrázek k článku {$post->title}" class="img-fluid mb-2">
+                                {/if}
+                                <div class="views mt-auto text-success">{$post->views} zobrazení</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {/if}
+        {/foreach}
+    </div>
+</div>
+<div class="status_write">
+<h2>Výpis statusu:</h2>
+<p>1. OPEN = Otevřený -> Viditelné pro všechny, komentáře pro všechny.</p>
+<p>2. CLOSED = Uzavřený -> Viditelné pro všechny, komentáře jedině pro přihlášené uživatele.</p>
+<p>3. ARCHIVED = Archivovaný -> Příspěvek je archivován, viditelné jedině pro přihlášené uživatele a komentáře jsou uzamčeny.</p>
+</div>
+{if $user->isLoggedIn()}<a n:href="Edit:create">Vytvořit příspěvek</a>{/if}
+<div class="pagination">
+	{if !$paginator->isFirst()}
+		<a n:href="default, 1">První</a>
+		&nbsp;|&nbsp;
+		<a n:href="default, $paginator->page-1">Předchozí</a>
+		&nbsp;|&nbsp;
+	{/if}
+
+	Stránka {$paginator->getPage()} z {$paginator->getPageCount()}
+
+	{if !$paginator->isLast()}
+		&nbsp;|&nbsp;
+		<a n:href="default, $paginator->getPage() + 1">Další</a>
+		&nbsp;|&nbsp;
+		<a n:href="default, $paginator->getPageCount()">Poslední</a>
+	{/if}
+</div>
+<footer>
+<p>© 2024 - PHP_WEBSITE / CMOP BY FILIP JANČA</p>
+</footer>
+
